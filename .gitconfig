@@ -1,0 +1,52 @@
+# This is Git's per-user configuration file.
+[user]
+# Please adapt and uncomment the following lines:
+	name = Niels Bischof
+	email = nbischof@gmail.com
+[core]
+	excludesfile = /Users/nbischof/.gitignore_global
+[difftool "diffmerge"]
+	cmd = diffmerge \"$LOCAL\" \"$REMOTE\"
+	path = 
+#[difftool "sourcetree"]
+#	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+#	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[commit]
+	template = /Users/nbischof/.stCommitMsg
+[alias]
+	st = status -sb
+	a  = !git add -u . && git status
+	ame = commit --amend
+	amne = commit --amend --no-edit
+	dt = difftool
+	dtc = difftool --cached
+	dl = difftool HEAD^
+	ci = commit
+	co = checkout
+	back = checkout @{-1}
+	blast = for-each-ref --sort=-committerdate --count=5 --format='%(refname:short)' refs/heads/
+	p = pull --ff-only
+	m = merge --ff-only
+	h  = rev-parse HEAD
+	hh = rev-parse --short HEAD
+  last = log -n5 --pretty=format:'%Cred%h%Creset -<%an>%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)%Creset' --abbrev-commit --date=relative
+  last1 = log -n1 --pretty=format:'%Cred%h%Creset -<%an>%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)%Creset' --abbrev-commit --date=relative
+  last20 = log -n20 --pretty=format:'%Cred%h%Creset -<%an>%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)%Creset' --abbrev-commit --date=relative
+  all = log -n20 --pretty=format:'%Cred%h%Creset -<%an>%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)%Creset' --abbrev-commit --date=relative
+	se = '!git rev-list --all | xargs git grep -F'
+  gl = config --global -l
+  undo=reset --soft HEAD^
+  who = shortlog -s --
+  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+  dc = diff --cached
+  du = diff -U0
+  duc = diff --cached -U0
+  lp = log -p
+	
+[diff]
+	tool = meld
+[safe]
+	directory = /Users/nbischof/Dropbox/it/infra/cloudflare/worker/bucket

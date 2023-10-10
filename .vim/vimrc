@@ -1,0 +1,174 @@
+set nocompatible               " be iMproved
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""  Keys
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let mapleader = " "
+let maplocalleader="-"
+
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+"" nmap <silent> <leader>ev :e $MYVIMRC<CR>
+nmap <silent> <leader>sv :let cols=&columns \| source $MYVIMRC \| let &columns=cols<CR>
+nmap <silent> <leader>w  :set wrap!<CR>
+set pastetoggle=<F2>
+
+" windows
+nnoremap <silent> <Leader><Right> :exe "vertical resize " . (winwidth(0) + 1)<CR>
+nnoremap <silent> <Leader><Left>  :exe "vertical resize " . (winwidth(0) - 1)<CR>
+nnoremap <silent> <Leader><Up>    :exe "resize " . (winheight(0) + 1)<CR>
+nnoremap <silent> <Leader><Down>  :exe "resize " . (winheight(0) - 1)<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""  UI settings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+syntax enable
+colorscheme solarized
+let g:solarized_termcolors=256
+
+if has("gui_running")
+  set lines=999
+  set columns=120
+  set background=light
+else
+  set background=dark
+endif
+
+
+autocmd BufEnter * call MapDiffKeys()
+function! MapDiffKeys()
+    if &diff
+      map <localleader>j ]c
+      map <localleader>k [c
+    endif
+endfunction
+
+
+source /Users/nbischof/.vim/vimrc.local
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""   OPTIONS
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+set fileencodings=ucs-bom,utf-8,default
+set mouse=a
+set mousemodel=popup
+set termencoding=utf-8
+set hidden
+set nowrap        " don't wrap lines
+set backspace=indent,eol,start
+set autoindent    " always set autoindenting on
+set copyindent    " copy the previous indentation on autoindenting
+set number        " always show line numbers
+set shiftround    " use multiple of shiftwidth when indenting with '<' and '>'
+set showmatch     " set show matching parenthesis
+if has("statusline")
+ set statusline=%<%f\ %h%m%r%=%{\"[\".(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\").\"]\ \"}%k\ %-14.(%l,%c%V%)\ %P
+endif
+let g:netrw_preview=1
+let g:netrw_browse_split = 2
+set cursorline
+set modeline
+set expandtab
+set smarttab
+set tabstop=2
+set shiftwidth=2
+set tildeop
+set nobackup
+set number
+set formatoptions=q
+set smartindent
+set ruler
+set laststatus=2
+set pastetoggle=<F2>
+set incsearch
+set hlsearch
+set history=10000
+"set guifont=Lucida_Sans_Typewriter:h14:cANSI
+set encoding=utf-8
+set showcmd
+let mapleader = " "
+set undodir=$TMP
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""   MAPPINGS
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+map <F4> ggVG"od"+P
+nnoremap <C-S-PageUp> :tabfirst<CR>
+nnoremap <C-S-PageDown> :tablast<CR>
+nnoremap QQ :qall<CR>
+nnoremap Q!Q :qall!<CR>
+vnoremap // y/<C-R>"<CR>
+nnoremap <leader>vv 0vg_
+nnoremap <leader>ve v$
+nnoremap <leader>q  :bdelete<cr>
+nnoremap <esc><esc> :qall<cr>
+nnoremap <leader><Del>e :g;^\s*$;d<cr>
+
+" Folding
+inoremap <F9> <C-O>za
+nnoremap <F9> za
+onoremap <F9> <C-C>za
+vnoremap <F9> zf
+
+nmap <silent> <leader>ev :tabnew $MYVIMRC<CR>
+nmap <silent> <leader>sv :so $MYVIMRC<CR>
+nmap <silent> <leader>w :set wrap!<CR>
+nmap <silent> <leader>s :set scrollbind!<CR>
+
+nmap <silent> <leader>n :tabnew<CR>
+nmap <silent> <leader>l :tabnext<cr>
+nmap <silent> <leader>h :tabprevious<cr>
+nmap <silent> <leader>f :tabprevious<cr>
+nmap <silent> <leader>j :tabnext<cr>
+nmap <silent> <C-S-Tab> :tabprevious<cr>
+nnoremap <silent> <C-Tab>   :tabnext<cr>
+imap <silent> <C-S-Tab> <C-O>:tabprevious<cr>
+imap <silent> <C-Tab>   <C-O>:tabnext<cr>
+nmap <silent> <leader>tf :-tabmove<cr>
+nmap <silent> <leader>tj :+tabmove<cr>
+nmap <silent> <leader><leader>s :update<cr>
+
+nnoremap <F5>     :update <bar> e<cr>
+nnoremap <C-F5>   "Fyy:echo "appended to register F."<cr>
+nnoremap <C-S-F5> qfq:echo "Register F reset."<cr>
+nnoremap <S-F5>   "fP
+nnoremap <silent> <F8>t    :argdo tabe<cr>:q<cr>:tabdo update <bar> e<cr>
+nnoremap <C-Up>   :previous<cr>
+nnoremap <C-Down> :next<cr>
+nnoremap <Tab>    <C-W><C-W>
+
+nmap <silent> <leader><Right> :set columns+=10<cr>
+nmap <silent> <leader><Left> :set columns-=10<cr>
+nnoremap <leader>S :mks!<CR>
+noremap <C-Z> u
+noremap <C-Y> <C-R>
+vnoremap <C-X> "+x
+omap <C-V> "+gP
+nmap <C-V> "+gP
+onoremap <C-S> :update<CR>
+nnoremap <C-S> :update<CR>
+vnoremap <C-S> <C-C>:update<CR>
+vmap c "+y
+map      <leader>ss <C-S>
+map!     <leader>ss <C-S>
+noremap <C-Q> <C-V>
+vnoremap <C-C> "+y
+nnoremap <C-A> gggH<C-O>G
+onoremap <C-A> <C-C>gggH<C-O>G
+snoremap <C-A> <C-C>gggH<C-O>G
+xnoremap <C-A> <C-C>ggVG
+noremap   <S-Insert> "*P
+map!      <S-Insert> <C-O><S-Insert>
+imap <S-Insert> <C-R>+
+cnoremap <C-A> <C-C>gggH<C-O>G
+inoremap <C-A> <C-O>gg<C-O>gH<C-O>G
+inoremap <C-S> <C-O>:update<CR>
+inoremap <C-U> <C-G>u<C-U>
+inoremap <C-S-V> <C-O>"+gP
+
+nnoremap gf :tabnew <cfile><CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""   MAC
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set background=light
+
